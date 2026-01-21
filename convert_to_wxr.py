@@ -9,7 +9,7 @@ from html import escape
 
 # Configuration
 BACKUP_DIR = "backup/posts"
-IMAGE_BASE_URL = "http://localhost:8000/images" # Local server for import
+IMAGE_BASE_URL = "http://localhost:8000" # Local server for import
 OUTPUT_FILE = "tistory_backup.xml"
 
 def create_wxr_header():

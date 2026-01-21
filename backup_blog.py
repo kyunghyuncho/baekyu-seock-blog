@@ -35,10 +35,23 @@ def download_image(url, save_dir):
              # Let's try to just save what we get.
              pass
 
-        # Ensure unique filename
+        # Handle extension using Content-Type header
         name, ext = os.path.splitext(filename)
         if not ext:
-            ext = ".jpg" # Default to jpg if no extension
+            content_type = response.headers.get('Content-Type', '').lower()
+            if 'image/jpeg' in content_type or 'image/jpg' in content_type:
+                ext = '.jpg'
+            elif 'image/png' in content_type:
+                ext = '.png'
+            elif 'image/gif' in content_type:
+                ext = '.gif'
+            elif 'image/webp' in content_type:
+                ext = '.webp'
+            else:
+                # print(f"    [?] Unknown content type for {url}: {content_type}, defaulting to .jpg")
+                ext = '.jpg'
+            
+            filename = f"{name}{ext}"
         
         # Tistory images sometimes look like /image/blabla
         if len(filename) > 50:
